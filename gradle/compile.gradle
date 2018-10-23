@@ -1,0 +1,31 @@
+// Turn on all warnings and errors
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    // Show all warnings except boot classpath
+    configure(options) {
+        compilerArgs << "-Xlint:all"                        // Turn on all warnings
+        compilerArgs << "-Xlint:-options"                // Turn off "missing" bootclasspath warning
+        compilerArgs << "-Xlint:-path"                    // Turn off warning - annotation processing
+        compilerArgs << "-Xlint:-processing"                // Turn off warning about not claiming annotations
+        compilerArgs << "-Xdiags:verbose"                // Turn on verbose errors
+        compilerArgs << "-XepDisableWarningsInGeneratedCode"
+        encoding = "utf-8"
+        fork = true
+    }
+}
+
+// Turn on logging for all tests, filter to show failures/skips only
+tasks.withType(Test) {
+    ignoreFailures false
+
+    testLogging {
+        exceptionFormat "full"
+        showCauses true
+        showExceptions true
+        showStackTraces true
+        showStandardStreams true
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}

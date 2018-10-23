@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_no_app">You need to have Alax Pay Wallet installed.</string>
+</resources>

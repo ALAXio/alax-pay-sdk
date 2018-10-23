@@ -1,0 +1,114 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'net.ltgt.errorprone'
+// discover dependency current versions ./gradlew dependencyUpdates -Drevision=release
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.palantir.git-version'
+apply plugin: 'org.jetbrains.dokka-android'
+
+
+apply from: rootProject.file("gradle/compile.gradle")
+
+kapt {
+    correctErrorTypes = true
+}
+
+def d = versionDetails()
+version = "$d.lastTag"
+if (d.commitDistance > 0 || !d.isCleanTag) {
+    version = "$d.lastTag-SNAPSHOT"
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        versionName = version
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        // Espresso test runner
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    }
+
+    sourceSets {
+        main {
+            aidl.srcDirs = ['src/main/java']
+            java.srcDirs += 'src/main/kotlin'
+            test.java.srcDirs += 'src/test/kotlin'
+            androidTest.java.srcDirs += 'src/androidTest/kotlin'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    lintOptions {
+        abortOnError false
+        checkAllWarnings true
+        warningsAsErrors true
+        showAll true
+        explainIssues true
+        disable "UnusedResources",              // Unused will be removed on release
+                "IconExpectedSize",             // Using the material icons provided from Google
+                "GoogleAppIndexingApiWarning",  // We might want to index our app later
+                "InvalidPackage",               // Butterknife, Okio and Realm
+                "ResourceType",                 // Annotation binding
+                "GradleDependency",
+                "NewerVersionAvailable",
+                "PropertyEscape"                // CI issue with sdk.dir in local.properties
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.google.code.gson:gson:2.8.1'
+    api 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+}
+
+// build a jar with source files
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = "javadoc"
+    outputDirectory = "$buildDir/javadoc"
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

@@ -1,0 +1,31 @@
+ext.minSdkVersion = 16
+ext.compileSdkVersion = 27
+ext.buildToolsVersion = '28.0.3'
+
+buildscript {
+    ext.kotlin_version = '1.2.71'
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.10'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        classpath "gradle.plugin.com.palantir.gradle.gitversion:gradle-git-version:0.11.0"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.16"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
