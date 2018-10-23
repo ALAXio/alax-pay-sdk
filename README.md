@@ -1,5 +1,7 @@
 # ALAX Pay SDK #
 
+[![Release](https://jitpack.io/v/alaxio/alax-pay-sdk.svg)](https://jitpack.io/#alaxio/alax-pay-sdk)
+
 ## Introduction ##
 
 ALAX Pay is a secure online platform for transferring and storing ALAX digital currency. Our mission is to create an open financial system for the gaming world by providing services for sending or receiving ALAX digital currency between online wallets, game players, or game publishers. ALAX Pay is a platform on which many applications are being built using our SDK.
@@ -35,20 +37,9 @@ Then, add the SDK library as a dependency (`implementation com.github.alaxio:ala
 
 ```
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
-    // ALAX Pay SDK dependencies
+    // ...
     implementation 'com.github.alaxio:alax-pay-sdk:0.1.0'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.google.code.gson:gson:2.8.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    // ...
 }
 ```
 
