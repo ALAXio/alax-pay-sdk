@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import io.alax.sdk.pay.AlaxPay
+import io.alax.sdk.pay.model.Asset
 import io.alax.sdk.pay.model.ObjectNotFoundException
 import io.alax.sdk.pay.model.TransferInput
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,7 +17,7 @@ class PayActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_pay)
-    //init AlaxPay API
+
     AlaxPay.init()
 
     btnTransfer.setOnClickListener {
@@ -28,7 +29,11 @@ class PayActivity : AppCompatActivity() {
       }
 
       if (inputReceiver.text.isNotEmpty() && inputAmount.text.isNotEmpty()) {
-        AlaxPay.Ui.requestTransferActivity(TransferInput(inputReceiver.text.toString(), inputAmount.text.toString().toBigDecimal()), this)
+        try {
+          AlaxPay.Ui.requestTransferActivity(TransferInput(inputReceiver.text.toString(), inputAmount.text.toString().toBigDecimal(), Asset.ALX), this)
+        } catch (e: Exception) {
+          Toast.makeText(this@PayActivity, e.message, Toast.LENGTH_SHORT).show()
+        }
         btnVerify.isEnabled = false
       }
     }
