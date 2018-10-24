@@ -99,7 +99,7 @@ The UI Interface exposes two methods to register a transfer activity event with 
 
 The transfer event is registered with:
 ```
-fun requestTransferActivity( data: TransferData, activity: Activity,
+fun requestTransferActivity( input: TransferInput, activity: Activity,
   requestCode: Int = 0)
 ```
 
@@ -113,7 +113,7 @@ Parameters:
 
 Name | Type | Description | Default
 --- | --- | --- | ---
-data | TransferData | Transfer data object |
+data | TransferInput | Transfer data object |
 activity | Activity | The AppCompatActivity object whose onActivityResult method is called upon completion of the request.
 requestCode | Int | request identifier | 0
 
@@ -166,10 +166,10 @@ See `fun onActivityResult` in the provided example application for context.
 
 ##### Data Objects #####
 
-The `TransferData` object carries information on the recipient of the transfer, the amount of the transfer.
+The `TransferInput` object carries information on the recipient of the transfer, the amount of the transfer.
 
 ```
-data class TransferData (val receiver: String,
+data class TransferInput (val receiver: String,
    val amount: BigDecimal,
    val asset: Asset = Asset.ALXT)
 ```
@@ -182,7 +182,7 @@ receiver | String | Account name of the intended recipient of the transfer. |
 amount | BigDecimal | The amount to be transferred, formatted as a Decimal value. |
 
 For example:
-`TransferData(“alx-customer-6bf38de3-01af-449b-9fef-2eab82c5ca5c”, “27.50”.toBigDecimal())`
+`TransferInput(“alx-customer-6bf38de3-01af-449b-9fef-2eab82c5ca5c”, “27.50”.toBigDecimal())`
 
 Represents a transfer of `27.5 ALXT` (the default asset type) to the user `alx-customer-6bf38de3-01af-449b-9fef-2eab82c5ca5c`.
 
