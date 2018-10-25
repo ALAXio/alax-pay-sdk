@@ -20,6 +20,7 @@ interface UiContract {
    *
    * @param input transfer input object
    * @param activity calling Activity on which the [Activity.onActivityResult] gets called
+   * @throws [io.alax.sdk.pay.model.InvalidPrecisionException] when precision of amount exceeds supported precision of token
    */
   fun requestTransferActivity(input: TransferInput, activity: Activity) = requestTransferActivity(input, activity, 0)
 
@@ -32,6 +33,7 @@ interface UiContract {
    * @param input transfer input object
    * @param activity calling Activity on which the [Activity.onActivityResult] gets called
    * @param requestCode request identifier
+   * @throws [io.alax.sdk.pay.model.InvalidPrecisionException] when precision of amount exceeds supported precision of token
    */
   fun requestTransferActivity(input: TransferInput, activity: Activity, requestCode: Int)
 

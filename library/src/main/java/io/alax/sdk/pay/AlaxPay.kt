@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
 import com.google.gson.GsonBuilder
-import io.alax.sdk.pay.model.DefaultConfig
-import io.alax.sdk.pay.model.ProcessedTransaction
-import io.alax.sdk.pay.model.TransactionConfirmation
-import io.alax.sdk.pay.model.TransferInput
+import io.alax.sdk.pay.model.*
 import io.alax.sdk.pay.rest.Endpoints
 import io.alax.sdk.pay.rest.GetTransaction
 import io.alax.sdk.pay.rest.OperationTypeFactory
@@ -39,6 +36,9 @@ object AlaxPay {
 
   private lateinit var service: Endpoints
 
+  private fun isTransferInputValid(input: TransferInput): Boolean =
+    input.amount.decimalPlaces() <= input.asset.precision
+
   /**
    * Init the AlaxStore SDK
    *
@@ -59,11 +59,15 @@ object AlaxPay {
   @JvmField
   val Ui = object : UiContract {
     override fun requestTransferActivity(input: TransferInput, activity: Activity, requestCode: Int) {
+      if (!isTransferInputValid(input)) {
+        throw InvalidPrecisionException(input.asset)
+      }
+
       val intent = Intent(ACTION_PAY).apply {
         putExtra(PARAM_SDK_VERSION, SDK_VERSION)
         putExtra(PARAM_RECEIVER, input.receiver)
         putExtra(PARAM_AMOUNT, input.amount.toString())
-        putExtra(PARAM_ASSET_SYMBOL, input.asset.name)
+        putExtra(PARAM_ASSET_SYMBOL, input.asset.symbol)
       }
       if (intent.resolveActivity(activity.packageManager) != null) {
         activity.startActivityForResult(intent, requestCode)
