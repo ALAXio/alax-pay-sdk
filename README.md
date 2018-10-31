@@ -121,7 +121,7 @@ requestCode | Int | request identifier | 0
 See `fun onCreate` in the provided example application for context.
 
 **Validation of input:**
-Upon calling `requestTransferActivity()`, input is validated for decimal precision of amount. Note, that payments in AIA tokens can only be made with amounts of up to two decimal places of precision and payments in ALX token support amounts up to six decimal places of precision. When amount of higher decimal precision is passed into `TransferInput`, `InvalidPrecisionException` is thrown.
+Upon calling `requestTransferActivity()`, input is validated for minimum amount. Note, that payments in AIA tokens can only be made with amounts >= 0.02 AIA and payments in ALX token support amounts >= 0.000002 AIA. When lower amount is passed into `TransferInput`, `InvalidAmountException` is thrown.
 
 The result of the transfer request can be examined using:
 

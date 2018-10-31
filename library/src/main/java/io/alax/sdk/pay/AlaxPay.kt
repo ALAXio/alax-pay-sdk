@@ -37,7 +37,7 @@ object AlaxPay {
   private lateinit var service: Endpoints
 
   private fun isTransferInputValid(input: TransferInput): Boolean =
-    input.amount.decimalPlaces() <= input.asset.precision
+    input.amount >= input.asset.minAmountToPay
 
   /**
    * Init the AlaxStore SDK
@@ -60,7 +60,7 @@ object AlaxPay {
   val Ui = object : UiContract {
     override fun requestTransferActivity(input: TransferInput, activity: Activity, requestCode: Int) {
       if (!isTransferInputValid(input)) {
-        throw InvalidPrecisionException(input.asset)
+        throw InvalidAmountException(input.amount, input.asset)
       }
 
       val intent = Intent(ACTION_PAY).apply {

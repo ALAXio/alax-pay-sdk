@@ -1,8 +1,10 @@
 package io.alax.sdk.pay.model
 
-enum class Asset(val symbol: String, val precision: Int) {
-  AIA("AIA", 2),
-  ALX("ALX", 6);
+import java.math.BigDecimal
+
+enum class Asset(val symbol: String, val minAmountToPay: BigDecimal) {
+  AIA("AIA", BigDecimal("0.02")),
+  ALX("ALX", BigDecimal("0.000002"));
 
   companion object {
     val DEFAULT = ALX

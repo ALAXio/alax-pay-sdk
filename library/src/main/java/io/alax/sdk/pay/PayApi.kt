@@ -2,10 +2,7 @@ package io.alax.sdk.pay
 
 import android.app.Activity
 import android.content.Intent
-import io.alax.sdk.pay.model.ObjectNotFoundException
-import io.alax.sdk.pay.model.ProcessedTransaction
-import io.alax.sdk.pay.model.TransactionConfirmation
-import io.alax.sdk.pay.model.TransferInput
+import io.alax.sdk.pay.model.*
 import io.reactivex.Single
 
 /**
@@ -20,8 +17,9 @@ interface UiContract {
    *
    * @param input transfer input object
    * @param activity calling Activity on which the [Activity.onActivityResult] gets called
-   * @throws [io.alax.sdk.pay.model.InvalidPrecisionException] when precision of amount exceeds supported precision of token
+   * @throws [io.alax.sdk.pay.model.InvalidAmountException] when precision of amount exceeds supported precision of token
    */
+  @Throws(InvalidAmountException::class)
   fun requestTransferActivity(input: TransferInput, activity: Activity) = requestTransferActivity(input, activity, 0)
 
   /**
@@ -33,8 +31,9 @@ interface UiContract {
    * @param input transfer input object
    * @param activity calling Activity on which the [Activity.onActivityResult] gets called
    * @param requestCode request identifier
-   * @throws [io.alax.sdk.pay.model.InvalidPrecisionException] when precision of amount exceeds supported precision of token
+   * @throws [io.alax.sdk.pay.model.InvalidAmountException] when precision of amount exceeds supported precision of token
    */
+  @Throws(InvalidAmountException::class)
   fun requestTransferActivity(input: TransferInput, activity: Activity, requestCode: Int)
 
   /**
