@@ -25,8 +25,8 @@ object AlaxPay {
   const val PARAM_RESULT_TRX_IN_BLOCK = "param_result_trx_in_block"
   const val PARAM_RESULT_ERROR = "param_result_error"
   const val SDK_VERSION: String = BuildConfig.VERSION_NAME
-  const val PARAM_API_KEY = "param_asset_symbol"
-  const val PARAM_APP_BUNDLE_ID = "param_result_trx_block_num"
+  const val PARAM_API_KEY = "param_api_key"
+  const val PARAM_APP_BUNDLE_ID = "param_app_bundle_id"
 
   private const val ACTION_PAY = "io.alax.wallet.app.action.PAY"
   private const val DCORE_URL = "https://socket.decentgo.com:8090/"
