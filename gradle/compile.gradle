@@ -10,7 +10,6 @@ tasks.withType(JavaCompile) {
         compilerArgs << "-Xlint:-path"                    // Turn off warning - annotation processing
         compilerArgs << "-Xlint:-processing"                // Turn off warning about not claiming annotations
         compilerArgs << "-Xdiags:verbose"                // Turn on verbose errors
-        compilerArgs << "-XepDisableWarningsInGeneratedCode"
         encoding = "utf-8"
         fork = true
     }
