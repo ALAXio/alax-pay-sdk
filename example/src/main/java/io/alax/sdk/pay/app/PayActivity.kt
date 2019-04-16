@@ -30,7 +30,12 @@ class PayActivity : AppCompatActivity() {
 
       if (inputReceiver.text.isNotEmpty() && inputAmount.text.isNotEmpty()) {
         try {
-          AlaxPay.Ui.requestTransferActivity(TransferInput(inputReceiver.text.toString(), inputAmount.text.toString().toBigDecimal(), Asset.ALX), this)
+          AlaxPay.Ui.requestTransferActivity(
+            TransferInput(
+              receiver = "Game publisher name",
+              amount = inputAmount.text.toString().toBigDecimal(),
+              xApiKey = inputReceiver.text.toString()
+            ), this)
         } catch (e: Exception) {
           Toast.makeText(this@PayActivity, e.message, Toast.LENGTH_SHORT).show()
         }
