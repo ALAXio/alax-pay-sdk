@@ -33,12 +33,12 @@ allprojects {
 
 
 
-Then, add the SDK library as a dependency (`implementation com.github.alaxio:alax-pay-sdk:0.3.4`) and ensure that the following dependencies, required by ALAX Pay SDK are added to the build.gradle file of the application you are working on.
+Then, add the SDK library as a dependency (`implementation com.github.alaxio:alax-pay-sdk:0.4.1`) and ensure that the following dependencies, required by ALAX Pay SDK are added to the build.gradle file of the application you are working on.
 
 ```
 dependencies {
     // ...
-    implementation 'com.github.alaxio:alax-pay-sdk:0.3.4'
+    implementation 'com.github.alaxio:alax-pay-sdk:0.4.1'
     // ...
 }
 ```
