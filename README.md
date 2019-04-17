@@ -33,12 +33,12 @@ allprojects {
 
 
 
-Then, add the SDK library as a dependency (`implementation com.github.alaxio:alax-pay-sdk:0.3.0`) and ensure that the following dependencies, required by ALAX Pay SDK are added to the build.gradle file of the application you are working on.
+Then, add the SDK library as a dependency (`implementation com.github.alaxio:alax-pay-sdk:0.3.4`) and ensure that the following dependencies, required by ALAX Pay SDK are added to the build.gradle file of the application you are working on.
 
 ```
 dependencies {
     // ...
-    implementation 'com.github.alaxio:alax-pay-sdk:0.3.3'
+    implementation 'com.github.alaxio:alax-pay-sdk:0.3.4'
     // ...
 }
 ```
@@ -172,22 +172,27 @@ See `fun onActivityResult` in the provided example application for context.
 The `TransferInput` object carries information on the recipient of the transfer, the amount of the transfer.
 
 ```
-data class TransferInput (val receiver: String,
-   val amount: BigDecimal,
-   val asset: Asset = Asset.ALXT)
+data class TransferInput (
+    val receiver: String, 
+    val amount: BigDecimal,
+    val asset: Asset = Asset.AIA,
+    val xApiKey : String?
+)
 ```
 
 Parameters:
 
 Name | Type | Description | Default
 --- | --- | --- | ---
-receiver | String | Account name of the intended recipient of the transfer. |
+receiver | String | Publisher name alias of the intended recipient of the transfer. |
 amount | BigDecimal | The amount to be transferred, formatted as a Decimal value. |
+asset | Asset | Asset to be used in transfer. |
+xApiKey | String |API Key which is generated in our ALAX Publisher Website. |
 
 For example:
-`TransferInput(“alx-customer-6bf38de3-01af-449b-9fef-2eab82c5ca5c”, “27.50”.toBigDecimal())`
+`TransferInput(“Game publisher name”, “27.50”.toBigDecimal(), Asset.AIA, "xAPIKEY")`
 
-Represents a transfer of `27.5 ALXT` (the default asset type) to the user `alx-customer-6bf38de3-01af-449b-9fef-2eab82c5ca5c`.
+Represents a transfer of `27.5 AIA` to the user with alias name "Game publisher name".
 
 The `TransactionConfirmation` object carries information about processed transaction after it’s carried out and serves for purposes of verifying that the transfer is indeed registered on the blockchain.
 
