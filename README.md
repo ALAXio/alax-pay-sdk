@@ -49,7 +49,7 @@ dependencies {
 #### ALAX Pay Wallet App ####
 The ALAX Pay Wallet is a precompiled application that provides the services that the ALAX Pay SDK utilises. Without it being installed and running, applications built on the ALAX Pay SDK will not function.
 
-In order to test applications written with this SDK, developers will need to create at least two accounts through the wallet so that they can transfer assets between them. You’ll need to contact Alax Support Team via email address `developer@alax.io` to request some tokens for testing.
+In order to test applications written with this SDK, developers will need to create at least two accounts through the wallet so that they can transfer assets between them. You’ll need to contact Alax Support Team via email address `support@alax.io` to request some tokens for testing.
 
 ##### Determining a Wallet Address / Account Name #####
 
