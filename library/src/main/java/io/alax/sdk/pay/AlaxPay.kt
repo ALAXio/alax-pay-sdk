@@ -90,5 +90,7 @@ object AlaxPay {
     override fun verifyTransfer(transactionConfirmation: TransactionConfirmation): Single<ProcessedTransaction> =
         service.getTransaction(GetTransaction(transactionConfirmation)).map { it.result() }
 
+    override fun syncVerifyTransfer(transactionConfirmation: TransactionConfirmation): ProcessedTransaction =
+      verifyTransfer(transactionConfirmation).blockingGet()
   }
 }
