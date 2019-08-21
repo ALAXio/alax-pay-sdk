@@ -38,7 +38,7 @@ Then, add the SDK library as a dependency (`implementation com.github.alaxio:ala
 dependencies {
     // ...
 
-    implementation 'com.github.alaxio:alax-pay-sdk:0.4.2'
+    implementation 'com.github.alaxio:alax-pay-sdk:0.4.3'
 
     // ...
 }
