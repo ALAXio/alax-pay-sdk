@@ -60,4 +60,12 @@ interface ApiContract {
    * retrievable from [AlaxPay.PARAM_RESULT_TRX_BLOCK_NUM] and [AlaxPay.PARAM_RESULT_TRX_IN_BLOCK]
    */
   fun verifyTransfer(transactionConfirmation: TransactionConfirmation): Single<ProcessedTransaction>
+
+  /**
+   * Checks the presence of transfer on the DCore blockchain. Emits [ObjectNotFoundException] if purchase is not present.
+   *
+   * @param transactionConfirmation DCore transfer confirmation containing block number and transaction number in block,
+   * retrievable from [AlaxPay.PARAM_RESULT_TRX_BLOCK_NUM] and [AlaxPay.PARAM_RESULT_TRX_IN_BLOCK]
+   */
+  fun syncVerifyTransfer(transactionConfirmation: TransactionConfirmation): ProcessedTransaction
 }
