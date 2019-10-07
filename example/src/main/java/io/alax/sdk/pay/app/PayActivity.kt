@@ -34,6 +34,7 @@ class PayActivity : AppCompatActivity() {
             TransferInput(
               receiver = "Game publisher name",
               amount = inputAmount.text.toString().toBigDecimal(),
+              asset = Asset.getAsset(inputAmount.text.toString()),
               xApiKey = inputReceiver.text.toString()
             ), this)
         } catch (e: Exception) {
