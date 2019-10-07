@@ -7,6 +7,8 @@ enum class Asset(val symbol: String, val minAmountToPay: BigDecimal) {
   ALX("ALX", BigDecimal("0.000002"));
 
   companion object {
-    val DEFAULT = ALX
+    val DEFAULT = AIA
+    fun getAsset(symbol: String) = values().firstOrNull { it.symbol == symbol }
+      ?: DEFAULT
   }
 }
