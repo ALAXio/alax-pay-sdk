@@ -11,6 +11,7 @@ import io.alax.sdk.pay.model.ObjectNotFoundException
 import io.alax.sdk.pay.model.TransferInput
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_pay.*
+import java.util.*
 
 class PayActivity : AppCompatActivity() {
 
@@ -34,7 +35,7 @@ class PayActivity : AppCompatActivity() {
             TransferInput(
               receiver = "Game publisher name",
               amount = inputAmount.text.toString().toBigDecimal(),
-              asset = Asset.getAsset(inputAmount.text.toString()),
+              asset = Asset.getAsset(inputSymbol.text.toString().toUpperCase(Locale.ENGLISH)),
               xApiKey = inputReceiver.text.toString()
             ), this)
         } catch (e: Exception) {
